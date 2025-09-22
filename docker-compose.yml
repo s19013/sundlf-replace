@@ -1,0 +1,14 @@
+name: sundlf
+services:
+  backend:
+      build:
+        context: ./infra/laravel
+        dockerfile: Dockerfile
+      container_name: backend-sundlf
+      ports:
+        - 8000:8000
+      volumes:
+        - ./laravel:/laravel
+        - ./infra/laravel/php.ini:/usr/local/etc/php/php.ini
+      tty: true
+      stdin_open: true
