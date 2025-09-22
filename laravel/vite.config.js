@@ -10,4 +10,8 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
+     server: {
+        // --hostと同義
+        host: true,
+    }
 });
