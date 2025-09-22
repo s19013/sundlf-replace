@@ -13,5 +13,10 @@ export default defineConfig({
      server: {
         // --hostと同義
         host: true,
+        port: 5173,
+        hmr: {
+          host: 'localhost', // ホストPCからアクセスするときのURL
+          port: 5173,
+        },
     }
 });
