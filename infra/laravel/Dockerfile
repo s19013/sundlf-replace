@@ -40,3 +40,5 @@ RUN curl -sL https://deb.nodesource.com/setup_current.x  | bash - \
 && rm -rf /var/lib/apt/lists/* 
 
 WORKDIR /laravel
+
+SHELL ["/bin/bash", "-c"]
