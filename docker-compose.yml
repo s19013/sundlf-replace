@@ -25,6 +25,16 @@ services:
       - mariadb:/var/lib/mysql
       - ./infra/mariadb/my.conf:/etc/mariadb/conf.d/my.cnf
       - ./infra/mariadb/sql:/docker-entrypoint-initdb.d
+  vue:
+    build:
+        context: ./infra/vue
+        dockerfile: Dockerfile
+    container_name: front-sundlf
+    ports:
+      - 5172:5173
+    volumes:
+      - ./vue:/vue
+    tty: true
 
 volumes:
   mariadb:
