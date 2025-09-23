@@ -13,3 +13,18 @@ services:
         - ./infra/laravel/php.ini:/usr/local/etc/php/php.ini
       tty: true
       stdin_open: true
+  mariadb:
+    image: mariadb:12
+    restart: always
+    env_file:
+       - ./infra/mariadb/.env
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb:/var/lib/mysql
+      - ./infra/mariadb/my.cnf:/etc/mariadb/conf.d/my.cnf
+      - ./infra/mariadb/sql:/docker-entrypoint-initdb.d
+
+volumes:
+  mariadb:
+    driver: local
