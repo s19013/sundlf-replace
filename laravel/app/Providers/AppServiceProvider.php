@@ -23,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // ぶっちゃけ私もよくわかってないけど､laravel公式がやれって言ってるからやる
 
+        // sanctumで必要
         // Sanctumが提供している、usePersonalAccessTokenModelメソッドを利用し、カスタムモデルを使用するようにSanctumへ指示します
         Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
     }
