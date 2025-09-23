@@ -15,7 +15,7 @@ const axiosPlugin = {
   install(app: App, env: string) {
     // 開発
     if (env === "local" || env === 'dev') {
-      option.baseURL = 'http://127.0.0.1:8000/api/';
+      option.baseURL = 'http://backend-sundlf:8000/api/';
     }
 
     // 本番
