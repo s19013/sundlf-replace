@@ -15,6 +15,7 @@ services:
       stdin_open: true
   mariadb:
     image: mariadb:12
+    container_name: mariadb-sundlf
     restart: always
     env_file:
        - ./infra/mariadb/.env
@@ -22,7 +23,7 @@ services:
       - "3306:3306"
     volumes:
       - mariadb:/var/lib/mysql
-      - ./infra/mariadb/my.cnf:/etc/mariadb/conf.d/my.cnf
+      - ./infra/mariadb/my.conf:/etc/mariadb/conf.d/my.cnf
       - ./infra/mariadb/sql:/docker-entrypoint-initdb.d
 
 volumes:
