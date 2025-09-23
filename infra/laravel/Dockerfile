@@ -19,7 +19,13 @@ git \
 unzip \
 libzip-dev \
 libicu-dev \
-libonig-dev 
+libonig-dev \
+procps 
+
+# composer run dev で必要
+Run docker-php-ext-install pcntl 
+Run docker-php-ext-install zip
+
 
 # パッケージインストールで使用したキャッシュファイルを削除
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
