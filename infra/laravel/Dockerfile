@@ -23,8 +23,8 @@ libonig-dev \
 procps 
 
 # composer run dev で必要
-Run docker-php-ext-install pcntl 
-Run docker-php-ext-install zip
+RUN docker-php-ext-install pcntl 
+RUN docker-php-ext-install zip
 
 
 # パッケージインストールで使用したキャッシュファイルを削除
