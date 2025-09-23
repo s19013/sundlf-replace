@@ -41,4 +41,5 @@ RUN curl -sL https://deb.nodesource.com/setup_current.x  | bash - \
 
 WORKDIR /laravel
 
+# 初期からbashで動くように(イメージの作り直しが必要)
 SHELL ["/bin/bash", "-c"]
