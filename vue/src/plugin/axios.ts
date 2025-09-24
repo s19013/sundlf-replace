@@ -2,8 +2,6 @@ import type { App, InjectionKey } from 'vue'
 import axios from 'axios'
 import type { AxiosInstance } from 'axios'
 
-export const axiosKey: InjectionKey<AxiosInstance> = Symbol('axios')
-
 const option = {
   // cors設定
   withCredentials: true,
@@ -33,7 +31,13 @@ const axiosPlugin = {
     }
 
     const axiosInstance = axios.create(option)
-    app.provide('axios', axiosInstance)
+
+    // composition apiで使えるように
+    app.provide(axiosKey, axiosInstance)
+
+    // option api で使えるように
+    app.config.globalProperties.$axios = axiosInstance
   },
 }
 export default axiosPlugin
+export const axiosKey: InjectionKey<AxiosInstance> = Symbol('axios')
