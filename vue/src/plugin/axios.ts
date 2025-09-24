@@ -7,10 +7,13 @@ export const axiosKey: InjectionKey<AxiosInstance> = Symbol('axios')
 const option = {
   // cors設定
   withCredentials: true,
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN',
   headers: {
     'Content-Type': 'application/json;charset=utf-8',
-    xsrfCookieName: 'XSRF-TOKEN',
-    xsrfHeaderName: 'X-XSRF-TOKEN',
+    // laravelがつけることを推奨している
+    // 「このリクエストは Ajax ですよ」とサーバーに伝えるための目印
+    'X-Requested-With': 'XMLHttpRequest',
     // 'UserLang': window.navigator.language,
   },
   baseURL: 'http://localhost:8000/api/',
