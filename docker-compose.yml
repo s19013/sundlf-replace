@@ -2,7 +2,7 @@ name: sundlf
 services:
   backend:
       user: "1000:1000"
-      command: ["composer run dev"]
+      command: ["composer","run", "dev"]
       build:
         context: ./infra/laravel
         dockerfile: Dockerfile
@@ -29,7 +29,7 @@ services:
       - ./infra/mariadb/sql:/docker-entrypoint-initdb.d
   vue:
     user: "1000:1000"
-    command: ["npm run dev"]
+    command: ["npm", "run", "dev"]
     build:
         context: ./infra/vue
         dockerfile: Dockerfile
