@@ -1,17 +1,16 @@
-import type { App,InjectionKey  } from 'vue'
+import type { App, InjectionKey } from 'vue'
 import axios from 'axios'
 import type { AxiosInstance } from 'axios'
 
 export const axiosKey: InjectionKey<AxiosInstance> = Symbol('axios')
-
 
 const option = {
   // cors設定
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json;charset=utf-8',
-    'xsrfCookieName':'XSRF-TOKEN',
-    'xsrfHeaderName':'X-XSRF-TOKEN'
+    xsrfCookieName: 'XSRF-TOKEN',
+    xsrfHeaderName: 'X-XSRF-TOKEN',
     // 'UserLang': window.navigator.language,
   },
   baseURL: 'http://localhost:8000/api/',
