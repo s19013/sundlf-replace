@@ -12,6 +12,6 @@ const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
-app.use(axiosPlugin, 'dev');
+app.use(axiosPlugin, import.meta.env.MODE);
 
 app.mount('#app')
