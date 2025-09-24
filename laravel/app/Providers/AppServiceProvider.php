@@ -18,6 +18,9 @@ class AppServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap any application services.
+     *
+     * このアノテーションをつけるとPHPMD の誤検知を避けられるらしい
+     * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public function boot(): void
     {
