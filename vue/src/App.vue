@@ -13,7 +13,7 @@ if (axios) {
       console.log(response)
     })
     .catch((error: AxiosError) => {
-      console.log(error.message)
+      console.error(error.response?.data ?? error.message)
     })
 }
 </script>
