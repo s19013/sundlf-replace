@@ -39,5 +39,6 @@ const axiosPlugin = {
     app.config.globalProperties.$axios = axiosInstance
   },
 }
-export default axiosPlugin
+
 export const axiosKey: InjectionKey<AxiosInstance> = Symbol('axios')
+export default axiosPlugin
