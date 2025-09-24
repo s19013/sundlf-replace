@@ -1,5 +1,5 @@
 import type { App } from 'vue'
-import axios from 'axios';
+import axios from 'axios'
 
 const option = {
   // cors設定
@@ -8,7 +8,7 @@ const option = {
     'Content-Type': 'application/json;charset=utf-8',
     // 'UserLang': window.navigator.language,
   },
-  baseURL:'',
+  baseURL: '',
 }
 
 const axiosPlugin = {
@@ -16,16 +16,16 @@ const axiosPlugin = {
     // 開発
     if (env === 'development') {
       // コンテナ名じゃなくて,localhostでok
-      option.baseURL = 'http://localhost:8000/api/';
+      option.baseURL = 'http://localhost:8000/api/'
     }
 
     // 本番
-    if (env === "production") {
-      option.baseURL = 'https://sundlf.com/api/';
+    if (env === 'production') {
+      option.baseURL = 'https://sundlf.com/api/'
     }
 
-    const axiosInstance = axios.create(option);
-    app.provide('axios', axiosInstance);
+    const axiosInstance = axios.create(option)
+    app.provide('axios', axiosInstance)
   },
-};
-export default axiosPlugin;
+}
+export default axiosPlugin

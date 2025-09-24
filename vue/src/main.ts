@@ -6,12 +6,12 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 
-import axiosPlugin  from './plugin/axios'
+import axiosPlugin from './plugin/axios'
 
 const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
-app.use(axiosPlugin, import.meta.env.MODE);
+app.use(axiosPlugin, import.meta.env.MODE)
 
 app.mount('#app')
