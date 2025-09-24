@@ -1,6 +1,22 @@
 <script setup lang="ts">
+import { inject } from 'vue';
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+import type { AxiosInstance,AxiosResponse, AxiosError } from 'axios'
+
+const axios = inject<AxiosInstance>('axios');
+
+if (axios) {
+  axios
+    .get('test')
+    .then((response: AxiosResponse) => {
+      console.log(response)
+    })
+    .catch((error: AxiosError) => {
+      console.log(error.message)
+    })
+}
+
 </script>
 
 <template>
