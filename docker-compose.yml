@@ -1,6 +1,7 @@
 name: sundlf
 services:
   backend:
+      user: "1000:1000"
       build:
         context: ./infra/laravel
         dockerfile: Dockerfile
@@ -26,6 +27,7 @@ services:
       - ./infra/mariadb/my.conf:/etc/mariadb/conf.d/my.cnf
       - ./infra/mariadb/sql:/docker-entrypoint-initdb.d
   vue:
+    user: "1000:1000"
     build:
         context: ./infra/vue
         dockerfile: Dockerfile
