@@ -14,12 +14,13 @@ const option = {
 const axiosPlugin = {
   install(app: App, env: string) {
     // 開発
-    if (env === "local" || env === 'dev') {
-      option.baseURL = 'http://backend-sundlf:8000/api/';
+    if (env === 'development') {
+      // コンテナ名じゃなくて,localhostでok
+      option.baseURL = 'http://localhost:8000/api/';
     }
 
     // 本番
-    if (env === "product" || env === 'pro') {
+    if (env === "production") {
       option.baseURL = 'https://sundlf.com/api/';
     }
 
