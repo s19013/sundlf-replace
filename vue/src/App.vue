@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import { inject } from 'vue'
+import { inject, onMounted } from 'vue'
+import { axiosKey } from '@/plugin/axios'
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
 import type { AxiosInstance, AxiosResponse, AxiosError } from 'axios'
 
-const axios = inject<AxiosInstance>('axios')
+// このプロジェクトようのaxiosを呼び出す
+const axios = inject<AxiosInstance>(axiosKey)
 
-if (axios) {
+onMounted(() => {
+  if (!axios) return
   axios
     .get('test')
     .then((response: AxiosResponse) => {
@@ -15,7 +18,7 @@ if (axios) {
     .catch((error: AxiosError) => {
       console.error(error.response?.data ?? error.message)
     })
-}
+})
 </script>
 
 <template>
