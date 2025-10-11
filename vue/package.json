@@ -14,7 +14,8 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix",
-    "format": "prettier --write src/"
+    "format-all": "prettier --write src/",
+    "format": "prettier --write"
   },
   "dependencies": {
     "axios": "^1.12.2",
