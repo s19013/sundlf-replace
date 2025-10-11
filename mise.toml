@@ -1,0 +1,14 @@
+[tasks.exec_php]
+description = "phpコンテナのdocker execのalias"
+run = """
+docker compose exec backend-sundlf bash -ic
+"""
+
+[tasks.exec_vue]
+description = "vueコンテナのdocker execのalias"
+run = """
+docker compose exec front-sundlf bash -ic
+"""
+
+
+
