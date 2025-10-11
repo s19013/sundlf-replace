@@ -1,6 +1,3 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
-<template>
-  ログインページの予定
-</template>
+<template>ログインページの予定</template>
