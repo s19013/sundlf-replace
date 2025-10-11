@@ -1,0 +1,14 @@
+pre-commit:
+  parallel: false # 順番に実行
+  commands:
+    prettier-fix:
+      glob: "**/*.{ts,vue,json,css}"
+      run: |
+        mise exec_vue npm run format -- {staged_files}
+        git add {staged_files}
+
+    pint-fix:
+      glob: "**/*.php"
+      run: |
+        mise exec_php ./vendor/bin/pint {staged_files}
+        git add {staged_files}
