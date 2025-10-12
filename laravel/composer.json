@@ -55,6 +55,10 @@
         "test": [
             "@php artisan config:clear --ansi",
             "@php artisan test"
+        ],
+        "reset-database":[
+            "@php artisan migrate:fresh",
+            "@php artisan db:seed"
         ]
     },
     "extra": {
