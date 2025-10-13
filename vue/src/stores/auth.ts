@@ -1,4 +1,4 @@
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import { defineStore } from 'pinia'
 import type { AxiosResponse } from 'axios'
 
@@ -9,6 +9,7 @@ interface userData {
 export const useAuthStore = defineStore('auth', () => {
   const token = ref<string | null>(localStorage.getItem('token'))
   const user: userData = reactive({ name: null })
+  const isVerified = computed<boolean>(() => token.value !== null)
 
   // 初期化処理（コンストラクタ代わり）
   const savedUser = localStorage.getItem('user')
@@ -39,5 +40,5 @@ export const useAuthStore = defineStore('auth', () => {
     localStorage.clear()
   }
 
-  return { token, user, setFromResponse, $reset }
+  return { token, user, isVerified, setFromResponse, $reset }
 })
