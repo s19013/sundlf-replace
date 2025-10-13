@@ -1,15 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import Login from '@/views/auth/login.vue'
+import { authGuard, authOnlyList } from '@/router/authGuard'
+import { guestGuard, gestOnlyList } from '@/router/guestGuard'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: HomeView,
-    },
+    ...authOnlyList,
+    ...gestOnlyList,
     {
       path: '/about',
       name: 'about',
@@ -18,12 +15,10 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue'),
     },
-    {
-      path: '/login',
-      name: 'login',
-      component: Login,
-    },
   ],
 })
+
+router.beforeEach(authGuard)
+router.beforeEach(guestGuard)
 
 export default router
