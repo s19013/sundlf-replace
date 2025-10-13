@@ -7,20 +7,36 @@ interface userData {
 }
 
 export const useAuthStore = defineStore('auth', () => {
-  const token = ref<string | null>(null)
+  const token = ref<string | null>(localStorage.getItem('token'))
   const user: userData = reactive({ name: null })
+
+  // 初期化処理（コンストラクタ代わり）
+  const savedUser = localStorage.getItem('user')
+  if (savedUser) {
+    Object.assign(user, JSON.parse(savedUser))
+  }
 
   function setFromResponse(response: AxiosResponse) {
     const data = response.data
 
     token.value = data.token
-    user.name = data.name
+    Object.assign(user, data.user)
+
+    if (user) {
+      localStorage.setItem('user', JSON.stringify(user))
+    }
+    if (token.value) {
+      localStorage.setItem('token', token.value)
+    }
   }
 
   // セットアップ形式の場合手動でリセット関数を定義しないといけない
   function $reset() {
     token.value = null
     user.name = null
+
+    // ローカルストレージから削除
+    localStorage.clear()
   }
 
   return { token, user, setFromResponse, $reset }
