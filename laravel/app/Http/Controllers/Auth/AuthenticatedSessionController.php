@@ -26,8 +26,7 @@ class AuthenticatedSessionController extends Controller
         /** @var User $user */
         $user = $this->userRepository->findByEmail($request->email);
 
-        // 既存のトークンを削除し、新しいトークンを発行
-        $user->tokens()->delete();
+        // トークン発行
         $token = $user->createToken('browser_auth_token');
 
         return response()->json([
