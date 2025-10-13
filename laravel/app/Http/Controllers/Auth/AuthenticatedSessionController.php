@@ -24,7 +24,7 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         /** @var User $user */
-        $user = $this->userRepository->findByEmail($request->email, $request->password);
+        $user = $this->userRepository->findByEmail($request->email);
 
         // 既存のトークンを削除し、新しいトークンを発行
         $user->tokens()->delete();
