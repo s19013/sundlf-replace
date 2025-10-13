@@ -17,10 +17,10 @@ class UserRepository extends BaseRepository
         return User::class;
     }
 
-    public function findByEmailAndPass(string $email, string $password): User
+    public function findByEmail(string $email): User
     {
         $query = $this->model->newQuery();
-        $query->where('email', $email)->where('password', $password);
+        $query->where('email', $email);
 
         return $query->firstOrFail();
     }
