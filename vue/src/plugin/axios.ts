@@ -34,7 +34,7 @@ const axiosPlugin = {
     const axiosInstance = axios.create(config)
 
     // リクエスト前に必ずinterceptorを実行しtokenを貼る
-    axios.interceptors.request.use(
+    axiosInstance.interceptors.request.use(
       function (config) {
         // リクエストが送信される前の処理
         // config：このリクエストの設定（URL, headers, dataなど）をいじる
