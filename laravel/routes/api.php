@@ -15,3 +15,4 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::post('/login', [AuthenticatedSessionController::class, 'login']);
+Route::post('/logout', [AuthenticatedSessionController::class, 'logout'])->middleware('auth:sanctum');

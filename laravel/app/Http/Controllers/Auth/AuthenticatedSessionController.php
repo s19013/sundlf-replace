@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Request\Auth\LoginRequest;
 use App\Models\User;
 use App\Repositories\UserRepository;
+use Illuminate\Http\Request;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -32,6 +33,17 @@ class AuthenticatedSessionController extends Controller
         return response()->json([
             'token' => $token->plainTextToken,
             'user' => LoginDto::fromModel($user),
+        ]);
+    }
+
+    // 後でusecaseに移動
+    public function logout(Request $request)
+    {
+        // 現在のアクセストークンを削除（＝無効化）
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json([
+            'message' => 'ログアウトしました｡',
         ]);
     }
 }
