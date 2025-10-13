@@ -1,8 +1,9 @@
 import type { App, InjectionKey } from 'vue'
-import axios from 'axios'
 import type { AxiosInstance } from 'axios'
+import { useAuthStore } from '@/stores/auth'
+import axios from 'axios'
 
-const option = {
+const config = {
   // cors設定
   withCredentials: true,
   xsrfCookieName: 'XSRF-TOKEN',
@@ -22,20 +23,40 @@ const axiosPlugin = {
     // 開発
     if (env === 'development') {
       // コンテナ名じゃなくて,localhostでok
-      option.baseURL = 'http://localhost:8000/api/'
+      config.baseURL = 'http://localhost:8000/api/'
     }
 
     // 本番
     if (env === 'production') {
-      option.baseURL = 'https://sundlf.com/api/'
+      config.baseURL = 'https://sundlf.com/api/'
     }
 
-    const axiosInstance = axios.create(option)
+    const axiosInstance = axios.create(config)
+
+    // リクエスト前に必ずinterceptorを実行しtokenを貼る
+    axios.interceptors.request.use(
+      function (config) {
+        // リクエストが送信される前の処理
+        // config：このリクエストの設定（URL, headers, dataなど）をいじる
+        const auth = useAuthStore() // Piniaのストアを参照
+
+        if (auth.token) {
+          // Authorizationヘッダーにトークンを自動付与
+          config.headers.Authorization = `Bearer ${auth.token}`
+        }
+
+        return config
+      },
+      function (error) {
+        // リクエスト エラーの処理
+        return Promise.reject(error)
+      },
+    )
 
     // composition apiで使えるように
     app.provide(axiosKey, axiosInstance)
 
-    // option api で使えるように
+    // Options API で this.$axios として使えるように
     app.config.globalProperties.$axios = axiosInstance
   },
 }
