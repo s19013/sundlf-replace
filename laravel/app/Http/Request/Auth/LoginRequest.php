@@ -19,8 +19,8 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['require'],
-            'password' => ['require'],
+            'email' => ['required'],
+            'password' => ['required'],
         ];
     }
 
@@ -41,7 +41,7 @@ class LoginRequest extends FormRequest
             throw new HttpResponseException(
                 response()->json([
                     'success' => false,
-                    'message' => 'ログインidかパスワードが間違っています',
+                    'message' => 'メールアドレスかパスワードが間違っています',
                     'error_code' => 'Unauthorized',
                 ], 401)
             );
