@@ -22,6 +22,10 @@ const axiosPlugin = {
   install(app: App, env: string) {
     // 開発
     if (env === 'development') {
+      // ブラウザが走ってるのはコンテナの外側（ホストOS）。
+      // Docker内のDNS（コンテナ名解決,サービス名解決）は ブラウザからは見えないからできない。
+      // 要するにdocker内部で通信する時しか,"http://sundlf-backend:8000/api/"とは通信できない
+
       // コンテナ名じゃなくて,localhostでok
       config.baseURL = 'http://localhost:8000/api/'
     }
