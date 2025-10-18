@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import TheWelcome from '../components/TheWelcome.vue'
 import { useRouter } from 'vue-router'
-import { inject, onMounted } from 'vue'
-import { axiosKey } from '@/plugin/axios'
-import type { AxiosInstance, AxiosResponse, AxiosError } from 'axios'
+import { useAxios } from '@/composables/useAxios'
+import { onMounted } from 'vue'
+import type { AxiosResponse, AxiosError } from 'axios'
 import { useAuthStore } from '@/stores/auth'
 
 // このプロジェクトようのaxiosを呼び出す
-// !（Non-null assertion）をつけてnull,undefinedじゃないことを保証
-const axios = inject<AxiosInstance>(axiosKey)!
+const axios = useAxios()
 
 // このプロジェクト用のルータを呼び出す
 const router = useRouter()

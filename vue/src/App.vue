@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { inject, onMounted } from 'vue'
-import { axiosKey } from '@/plugin/axios'
+import { onMounted } from 'vue'
+import { useAxios } from '@/composables/useAxios'
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
-import type { AxiosInstance, AxiosResponse, AxiosError } from 'axios'
+import type { AxiosResponse, AxiosError } from 'axios'
 
 // このプロジェクトようのaxiosを呼び出す
-const axios = inject<AxiosInstance>(axiosKey)!
+const axios = useAxios()
 
 onMounted(() => {
   axios

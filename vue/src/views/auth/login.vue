@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref, inject, reactive } from 'vue'
+import { ref, reactive } from 'vue'
+import { useAxios } from '@/composables/useAxios'
 import { useRouter } from 'vue-router'
-import { axiosKey } from '@/plugin/axios'
-import type { AxiosInstance, AxiosResponse, AxiosError } from 'axios'
+import type { AxiosResponse, AxiosError } from 'axios'
 import { useAuthStore } from '@/stores/auth'
 
 // このプロジェクトようのaxiosを呼び出す
-const axios = inject<AxiosInstance>(axiosKey)!
+const axios = useAxios()
 
 // このプロジェクト用のルータを呼び出す
 const router = useRouter()
