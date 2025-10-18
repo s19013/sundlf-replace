@@ -36,13 +36,13 @@ const axiosPlugin = {
     }
 
     const axiosInstance = axios.create(config)
+    const auth = useAuthStore() // Piniaのストアを参照
 
     // リクエスト前に必ずinterceptorを実行しtokenを貼る
     axiosInstance.interceptors.request.use(
       function (config) {
         // リクエストが送信される前の処理
         // config：このリクエストの設定（URL, headers, dataなど）をいじる
-        const auth = useAuthStore() // Piniaのストアを参照
 
         if (auth.token) {
           // Authorizationヘッダーにトークンを自動付与
