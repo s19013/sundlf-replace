@@ -19,8 +19,8 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required','string','email'],
-            'password' => ['required','string'],
+            'email' => ['required', 'string', 'email'],
+            'password' => ['required', 'string'],
         ];
     }
 
@@ -79,7 +79,7 @@ class LoginRequest extends FormRequest
                     ),
                     'error_code' => 'TOO_MANY_REQUESTS',
                 ],
-            429)
+                429)
         );
     }
 
