@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Models\User;
 
 /**
- * @extends BaseRepository<Post>
+ * @extends BaseRepository<User>
  */
 class UserRepository extends BaseRepository
 {
