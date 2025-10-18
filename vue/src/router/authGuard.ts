@@ -12,7 +12,8 @@ export const authOnlyList: Array<Route> = [
     component: HomeView,
   },
 ]
-const authOnlyNameList: Array<string> = ['home']
+// 自動生成で追加漏れを防ぐ
+const authOnlyNameList: Array<string> = authOnlyList.map((route) => route.name)
 
 export const authGuard = (
   to: RouteLocationNormalized,

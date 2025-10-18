@@ -12,7 +12,8 @@ export const guestOnlyList: Array<Route> = [
     component: Login,
   },
 ]
-const guestOnlyNameList: Array<string> = ['login']
+// 自動生成で追加漏れを防ぐ
+const guestOnlyNameList: Array<string> = guestOnlyList.map((route) => route.name)
 
 export const guestGuard = (
   to: RouteLocationNormalized,
