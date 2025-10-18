@@ -1,3 +1,5 @@
+<!-- eslint-disable vue/multi-word-component-names -->
+<!-- eslint-disable-next-line vue/multi-word-component-names -->
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
 import { useAxios } from '@/composables/useAxios'
