@@ -68,15 +68,18 @@ class LoginRequest extends FormRequest
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
         throw new HttpResponseException(
-            response()->json([
-                'success' => false,
-                'message' => trans(
-                    'auth.throttle',
-                    ['seconds' => $seconds,
-                        'minutes' => ceil($seconds / 60),
-                    ]),
-                'error_code' => 'Unauthorized',
-            ], 401)
+            response()->json(
+                [
+                    'success' => false,
+                    'message' => trans(
+                        'auth.throttle',
+                        ['seconds' => $seconds,
+                            'minutes' => ceil($seconds / 60),
+                        ]
+                    ),
+                    'error_code' => 'TOO_MANY_REQUESTS',
+                ],
+            429)
         );
     }
 
