@@ -33,8 +33,17 @@ class AuthenticatedSessionController extends Controller
     // 後でusecaseに移動
     public function logout(Request $request)
     {
+        $user = $request->user();
+        $token = $user?->currentAccessToken();
+
+        if ($token === null) {
+            return response()->json([
+                'message' => '既にログアウトしています｡',
+            ], 200);
+        }
+
         // 現在のアクセストークンを削除（＝無効化）
-        $request->user()->currentAccessToken()->delete();
+        $token->delete();
 
         return response()->json([
             'message' => 'ログアウトしました｡',
