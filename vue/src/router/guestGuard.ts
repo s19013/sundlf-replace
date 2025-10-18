@@ -5,14 +5,14 @@ import type { Route } from '@/mold/interface/route'
 import Login from '@/views/auth/login.vue'
 
 // 非ログイン者だけアクセスできる画面
-export const gestOnlyList: Array<Route> = [
+export const guestOnlyList: Array<Route> = [
   {
     path: '/login',
     name: 'login',
     component: Login,
   },
 ]
-const gestOnlyNameList: Array<string> = ['login']
+const guestOnlyNameList: Array<string> = ['login']
 
 export const guestGuard = (
   to: RouteLocationNormalized,
@@ -21,9 +21,9 @@ export const guestGuard = (
 ) => {
   // 認証storeを呼び出す
   const authStore = useAuthStore()
-  const routeInGestOnlyNameList = to.name && gestOnlyNameList.includes(to.name as string)
+  const routeInGuestOnlyNameList = to.name && guestOnlyNameList.includes(to.name as string)
 
-  if (routeInGestOnlyNameList && authStore.isVerified) {
+  if (routeInGuestOnlyNameList && authStore.isVerified) {
     next({ name: 'home' })
   } else {
     next()
