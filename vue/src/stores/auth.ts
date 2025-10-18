@@ -23,7 +23,7 @@ export const useAuthStore = defineStore('auth', () => {
     token.value = data.token
     Object.assign(user, data.user)
 
-    if (user) {
+    if (data.user && data.user.name) {
       localStorage.setItem('user', JSON.stringify(user))
     }
     if (token.value) {
