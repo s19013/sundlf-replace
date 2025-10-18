@@ -37,7 +37,8 @@ export const useAuthStore = defineStore('auth', () => {
     user.name = null
 
     // ローカルストレージから削除
-    localStorage.clear()
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
   }
 
   return { token, user, isVerified, setFromResponse, $reset }
