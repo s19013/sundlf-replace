@@ -1,14 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import { authGuard, authOnlyList } from '@/router/authGuard'
+import { guestGuard, guestOnlyList } from '@/router/guestGuard'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: HomeView,
-    },
+    ...authOnlyList,
+    ...guestOnlyList,
     {
       path: '/about',
       name: 'about',
@@ -19,5 +17,8 @@ const router = createRouter({
     },
   ],
 })
+
+router.beforeEach(authGuard)
+router.beforeEach(guestGuard)
 
 export default router

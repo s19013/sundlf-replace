@@ -20,6 +20,7 @@ class AppServiceProvider extends ServiceProvider
      * Bootstrap any application services.
      *
      * PHPMD の StaticAccess 警告（Sanctum の公式静的 API 呼び出しに対する誤検知）を抑制します。
+     *
      * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public function boot(): void

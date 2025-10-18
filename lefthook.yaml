@@ -1,0 +1,19 @@
+pre-commit:
+  parallel: false # 順番に実行
+  commands:
+    prettier-fix:
+      glob: "vue/**/*.{ts,vue,json,css}"
+      run: |
+        FILES=$(echo {staged_files} | sed 's#vue/##g')
+
+        mise exec_vue "npm run format -- $FILES"
+        git add {staged_files}
+
+    pint-fix:
+      glob: "laravel/**/*.php"
+      exclude: "laravel/**/*.blade.php"
+      run: |
+        FILES=$(echo {staged_files} | sed 's#laravel/##g')
+
+        mise exec_php "composer run pint -- $FILES"
+        git add {staged_files}

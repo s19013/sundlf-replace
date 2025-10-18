@@ -1,8 +1,9 @@
 import type { App, InjectionKey } from 'vue'
-import axios from 'axios'
 import type { AxiosInstance } from 'axios'
+import { useAuthStore } from '@/stores/auth'
+import axios from 'axios'
 
-const option = {
+const config = {
   // cors設定
   withCredentials: true,
   xsrfCookieName: 'XSRF-TOKEN',
@@ -21,21 +22,45 @@ const axiosPlugin = {
   install(app: App, env: string) {
     // 開発
     if (env === 'development') {
+      // ブラウザが走ってるのはコンテナの外側（ホストOS）。
+      // Docker内のDNS（コンテナ名解決,サービス名解決）は ブラウザからは見えないからできない。
+      // 要するにdocker内部で通信する時しか,"http://sundlf-backend:8000/api/"とは通信できない
+
       // コンテナ名じゃなくて,localhostでok
-      option.baseURL = 'http://localhost:8000/api/'
+      config.baseURL = 'http://localhost:8000/api/'
     }
 
     // 本番
     if (env === 'production') {
-      option.baseURL = 'https://sundlf.com/api/'
+      config.baseURL = 'https://sundlf.com/api/'
     }
 
-    const axiosInstance = axios.create(option)
+    const axiosInstance = axios.create(config)
+    const auth = useAuthStore() // Piniaのストアを参照
+
+    // リクエスト前に必ずinterceptorを実行しtokenを貼る
+    axiosInstance.interceptors.request.use(
+      function (config) {
+        // リクエストが送信される前の処理
+        // config：このリクエストの設定（URL, headers, dataなど）をいじる
+
+        if (auth.token) {
+          // Authorizationヘッダーにトークンを自動付与
+          config.headers.Authorization = `Bearer ${auth.token}`
+        }
+
+        return config
+      },
+      function (error) {
+        // リクエスト エラーの処理
+        return Promise.reject(error)
+      },
+    )
 
     // composition apiで使えるように
     app.provide(axiosKey, axiosInstance)
 
-    // option api で使えるように
+    // Options API で this.$axios として使えるように
     app.config.globalProperties.$axios = axiosInstance
   },
 }
