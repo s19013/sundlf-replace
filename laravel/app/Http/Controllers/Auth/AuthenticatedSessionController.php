@@ -8,6 +8,7 @@ use App\Http\Request\Auth\LoginRequest;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -23,8 +24,10 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
+        // LoginRequest::authenticate() 内で Auth::attempt() が呼ばれた後、
+        // 既に認証されたユーザーは Auth::user() で取得できる
         /** @var User $user */
-        $user = $this->userRepository->findByEmail($request->email);
+        $user = Auth::user();
 
         // トークン発行
         $token = $user->createToken('browser_auth_token');
