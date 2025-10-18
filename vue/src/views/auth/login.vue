@@ -29,11 +29,13 @@ const form: Form = reactive({
 })
 
 const errorMessage = ref<string | null>(null)
+const isLoading = ref(false)
 
 const submitEvent = () => {
   console.log(form)
 
   if (!axios) return
+  isLoading.value = true
   axios
     .post('login', form)
     .then((response: AxiosResponse) => {
@@ -46,6 +48,9 @@ const submitEvent = () => {
       if (error.response !== undefined) {
         errorMessage.value = error.response.data.message
       }
+    })
+    .finally(() => {
+      isLoading.value = false
     })
 }
 </script>
@@ -63,6 +68,8 @@ const submitEvent = () => {
       <input type="password" name="password" v-model="form.password" required />
     </label>
 
-    <button type="submit">submit</button>
+    <button type="submit" :disabled="isLoading">
+      {{ isLoading ? 'ログイン中...' : 'ログイン' }}
+    </button>
   </form>
 </template>
