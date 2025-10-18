@@ -30,7 +30,7 @@ class AuthenticatedSessionController extends Controller
         $user = Auth::user();
 
         // トークン発行
-        $token = $user->createToken('browser_auth_token');
+        $token = $user->createToken('auth_token');
 
         return response()->json([
             'token' => $token->plainTextToken,
