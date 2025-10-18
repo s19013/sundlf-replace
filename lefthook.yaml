@@ -8,7 +8,6 @@ pre-commit:
 
         mise exec_vue "npm run format -- $FILES"
         git add {staged_files}
-        
 
     pint-fix:
       glob: "laravel/**/*.php"
@@ -16,5 +15,5 @@ pre-commit:
       run: |
         FILES=$(echo {staged_files} | sed 's#laravel/##g')
 
-        mise exec_php "./vendor/bin/pint -- $FILES"
+        mise exec_php "composer run pint -- $FILES"
         git add {staged_files}
