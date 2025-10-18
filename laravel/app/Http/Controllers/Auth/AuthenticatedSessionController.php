@@ -6,19 +6,11 @@ use App\Dto\Auth\LoginDto;
 use App\Http\Controllers\Controller;
 use App\Http\Request\Auth\LoginRequest;
 use App\Models\User;
-use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthenticatedSessionController extends Controller
 {
-    protected UserRepository $userRepository;
-
-    public function __construct(UserRepository $userRepository)
-    {
-        $this->userRepository = $userRepository;
-    }
-
     // 後でusecaseに移動
     public function login(LoginRequest $request)
     {
