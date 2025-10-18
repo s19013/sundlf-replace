@@ -9,7 +9,7 @@ interface userData {
 export const useAuthStore = defineStore('auth', () => {
   const token = ref<string | null>(localStorage.getItem('token'))
   const user: userData = reactive({ name: null })
-  const isVerified = computed<boolean>(() => token.value !== null)
+  const isVerified = computed<boolean>(() => !!token.value && token.value.length > 0)
 
   // 初期化処理（コンストラクタ代わり）
   const savedUser = localStorage.getItem('user')
