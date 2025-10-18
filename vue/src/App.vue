@@ -6,10 +6,9 @@ import HelloWorld from './components/HelloWorld.vue'
 import type { AxiosInstance, AxiosResponse, AxiosError } from 'axios'
 
 // このプロジェクトようのaxiosを呼び出す
-const axios = inject<AxiosInstance>(axiosKey)
+const axios = inject<AxiosInstance>(axiosKey)!
 
 onMounted(() => {
-  if (!axios) return
   axios
     .get('test')
     .then((response: AxiosResponse) => {

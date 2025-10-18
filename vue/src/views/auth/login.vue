@@ -6,7 +6,7 @@ import type { AxiosInstance, AxiosResponse, AxiosError } from 'axios'
 import { useAuthStore } from '@/stores/auth'
 
 // このプロジェクトようのaxiosを呼び出す
-const axios = inject<AxiosInstance>(axiosKey)
+const axios = inject<AxiosInstance>(axiosKey)!
 
 // このプロジェクト用のルータを呼び出す
 const router = useRouter()
@@ -34,7 +34,6 @@ const isLoading = ref(false)
 const submitEvent = () => {
   console.log(form)
 
-  if (!axios) return
   isLoading.value = true
   axios
     .post('login', form)

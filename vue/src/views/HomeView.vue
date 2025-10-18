@@ -7,7 +7,8 @@ import type { AxiosInstance, AxiosResponse, AxiosError } from 'axios'
 import { useAuthStore } from '@/stores/auth'
 
 // このプロジェクトようのaxiosを呼び出す
-const axios = inject<AxiosInstance>(axiosKey)
+// !（Non-null assertion）をつけてnull,undefinedじゃないことを保証
+const axios = inject<AxiosInstance>(axiosKey)!
 
 // このプロジェクト用のルータを呼び出す
 const router = useRouter()
@@ -16,7 +17,6 @@ const router = useRouter()
 const authStore = useAuthStore()
 
 const logout = () => {
-  if (!axios) return
   axios
     .post('logout')
     .then((response: AxiosResponse) => {
@@ -30,7 +30,6 @@ const logout = () => {
 }
 
 onMounted(() => {
-  if (!axios) return
   axios
     .get('user')
     .then((response: AxiosResponse) => {
