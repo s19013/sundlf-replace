@@ -10,7 +10,7 @@ class LoginDto
         public readonly string $name,
     ) {}
 
-    public static function fromModel(User $user)
+    public static function fromModel(User $user):self
     {
         return new LoginDto(
             $user->name,
