@@ -4,11 +4,12 @@ import type { Route } from '@/mold/interface/route'
 export abstract class Guard {
   protected abstract redirectName: string
   protected abstract accessibleList: Array<Route>
-  abstract shouldRedirect(toName: string, accessibleList: Array<string>): boolean
+  protected abstract shouldRedirect(toName: string, accessibleNameList: Array<string>): boolean
 
   // 名前部分だけのリスト
   private accessibleNameList = (): Array<string> => this.accessibleList.map((route) => route.name)
 
+  // vue router に渡すガード
   routeGuard = (
     to: RouteLocationNormalized,
     from: RouteLocationNormalized,
