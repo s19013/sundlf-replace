@@ -1,21 +1,42 @@
 import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
 import type { Route } from '@/mold/interface/route'
 
+/**
+ * setAccessibleList() : アクセス可能ルートを定義
+ * setRedirectName() : リダイレクト先を定義
+ * shouldRedirect() : リダイレクト条件を定義
+ *
+ * index.tsにaccessibleListとrouteGuardを登録
+ */
 export abstract class Guard {
-  protected abstract redirectName: string
-  protected abstract accessibleList: Array<Route>
+  protected redirectName: string = ''
+  public accessibleList: Array<Route> = []
+
+  /** 名前部分だけのリスト */
+  protected accessibleNameList: Array<string> = []
+
+  constructor() {
+    this.redirectName = this.setRedirectName()
+    this.accessibleList = this.setAccessibleList()
+    this.accessibleNameList = this.accessibleList.map((route) => route.name)
+  }
+
+  /**  アクセス可能ルートを定義 */
+  protected abstract setAccessibleList(): Array<Route>
+
+  /** リダイレクト先を定義(パスではなくnameで登録してください) */
+  protected abstract setRedirectName(): string
+
+  /** リダイレクト条件を定義 */
   protected abstract shouldRedirect(toName: string, accessibleNameList: Array<string>): boolean
 
-  // 名前部分だけのリスト
-  private accessibleNameList = (): Array<string> => this.accessibleList.map((route) => route.name)
-
-  // vue router に渡すガード
-  routeGuard = (
+  /** vue router に渡すガード */
+  public routeGuard = (
     to: RouteLocationNormalized,
     from: RouteLocationNormalized,
     next: NavigationGuardNext,
   ) => {
-    if (this.shouldRedirect(to.name as string, this.accessibleNameList())) {
+    if (this.shouldRedirect(to.name as string, this.accessibleNameList)) {
       next({ name: this.redirectName })
     } else {
       next()

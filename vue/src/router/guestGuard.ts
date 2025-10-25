@@ -2,21 +2,26 @@
 import Login from '@/views/auth/login.vue'
 import { Guard } from './Guard'
 import { useAuthStore } from '@/stores/auth'
+import type { Route } from '@/mold/interface/route'
 
 export class GuestGuard extends Guard {
-  redirectName = 'home'
+  protected setRedirectName(): string {
+    return 'home'
+  }
 
   // 非ログイン者だけアクセスできる画面
-  accessibleList = [
-    {
-      path: '/login',
-      name: 'login',
-      component: Login,
-    },
-  ]
+  protected setAccessibleList(): Array<Route> {
+    return [
+      {
+        path: '/login',
+        name: 'login',
+        component: Login,
+      },
+    ]
+  }
 
   // ログイン者が非ログイン者のみアクセスできるページにアクセスしようとしてるのを防ぐ
-  shouldRedirect(toName: string, accessibleNameList: Array<string>): boolean {
+  public shouldRedirect(toName: string, accessibleNameList: Array<string>): boolean {
     // 認証storeを呼び出す
     const authStore = useAuthStore()
     const routeInGuestOnlyNameList = accessibleNameList.includes(toName as string)
