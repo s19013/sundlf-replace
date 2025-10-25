@@ -1,16 +1,16 @@
 // 未認証のみ許可
 import Login from '@/views/auth/login.vue'
 import { Guard } from './Guard'
+import type { RouteRecordRaw, RouteRecordName } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
-import type { Route } from '@/mold/interface/route'
 
 export class GuestGuard extends Guard {
-  protected setRedirectName(): string {
+  protected setRedirectName(): RouteRecordName {
     return 'home'
   }
 
   // 非ログイン者だけアクセスできる画面
-  protected setAccessibleList(): Array<Route> {
+  protected setAccessibleList(): RouteRecordRaw[] {
     return [
       {
         path: '/login',
@@ -21,10 +21,10 @@ export class GuestGuard extends Guard {
   }
 
   // ログイン者が非ログイン者のみアクセスできるページにアクセスしようとしてるのを防ぐ
-  public shouldRedirect(toName: string, accessibleNameList: Array<string>): boolean {
+  public shouldRedirect(toName: RouteRecordName, accessibleNameList: RouteRecordName[]): boolean {
     // 認証storeを呼び出す
     const authStore = useAuthStore()
-    const routeInGuestOnlyNameList = accessibleNameList.includes(toName as string)
+    const routeInGuestOnlyNameList = accessibleNameList.includes(toName)
 
     return routeInGuestOnlyNameList && authStore.isVerified
   }
