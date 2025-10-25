@@ -15,26 +15,11 @@ const config = {
     'X-Requested-With': 'XMLHttpRequest',
     // 'UserLang': window.navigator.language,
   },
-  baseURL: 'http://localhost:8000/api/',
+  baseURL: import.meta.env.VITE_API,
 }
 
 const axiosPlugin = {
-  install(app: App, env: string) {
-    // 開発
-    if (env === 'development') {
-      // ブラウザが走ってるのはコンテナの外側（ホストOS）。
-      // Docker内のDNS（コンテナ名解決,サービス名解決）は ブラウザからは見えないからできない。
-      // 要するにdocker内部で通信する時しか,"http://sundlf-backend:8000/api/"とは通信できない
-
-      // コンテナ名じゃなくて,localhostでok
-      config.baseURL = 'http://localhost:8000/api/'
-    }
-
-    // 本番
-    if (env === 'production') {
-      config.baseURL = 'https://sundlf.com/api/'
-    }
-
+  install(app: App) {
     const axiosInstance = axios.create(config)
     const auth = useAuthStore() // Piniaのストアを参照
 
