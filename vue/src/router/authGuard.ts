@@ -1,4 +1,4 @@
-// 非ログイン者のアクセス制限
+// 認証済みのみ許可
 import HomeView from '@/views/HomeView.vue'
 import { Guard } from './Guard'
 import { useAuthStore } from '@/stores/auth'

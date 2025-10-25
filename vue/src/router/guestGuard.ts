@@ -1,4 +1,4 @@
-// ログイン者のアクセス制限
+// 未認証のみ許可
 import Login from '@/views/auth/login.vue'
 import { Guard } from './Guard'
 import { useAuthStore } from '@/stores/auth'
