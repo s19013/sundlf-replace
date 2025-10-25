@@ -1,39 +1,39 @@
 name: sundlf
 services:
   backend:
-      user: "1000:1000"
-      command: ["composer","run", "dev"]
-      build:
-        context: ./infra/laravel
-        dockerfile: Dockerfile
-      container_name: backend-sundlf
-      ports:
-        - 8000:8000
-        - 5173:5173
-      volumes:
-        - ./laravel:/laravel
-        - ./infra/laravel/php.ini:/usr/local/etc/php/php.ini
-      tty: true
-      stdin_open: true
+    user: "1000:1000"
+    # command: ["composer", "run", "dev"]
+    build:
+      context: ./infra/laravel
+      dockerfile: Dockerfile
+    container_name: backend-sundlf
+    ports:
+      - 8000:8000
+      - 5173:5173
+    volumes:
+      - ./laravel:/laravel
+      - ./infra/laravel/php.ini:/usr/local/etc/php/php.ini
+    tty: true
+    stdin_open: true
   mariadb:
     image: mariadb:12
     container_name: mariadb-sundlf
     restart: always
     env_file:
-       - ./infra/mariadb/.env
+      - ./infra/mariadb/.env
     ports:
       - "3306:3306"
     volumes:
       - mariadb:/var/lib/mysql
       - ./infra/mariadb/my.conf:/etc/mariadb/conf.d/my.cnf
       - ./infra/mariadb/sql:/docker-entrypoint-initdb.d
-  vue:
+  frontend:
     user: "1000:1000"
     command: ["npm", "run", "dev"]
     build:
-        context: ./infra/vue
-        dockerfile: Dockerfile
-    container_name: front-sundlf
+      context: ./infra/vue
+      dockerfile: Dockerfile
+    container_name: frontend-sundlf
     ports:
       - 5172:5173
     volumes:
