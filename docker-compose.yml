@@ -2,6 +2,7 @@ name: sundlf
 services:
   web:
     image: nginx:latest
+    container_name: web-sundlf
     volumes:
       # vueはリバースプロキシでつなげるからマウントしなくて良い
       - ./laravel:/var/www/
@@ -13,6 +14,7 @@ services:
 
   backend:
     user: "1000:1000"
+    command: ["composer", "run", "serve-only-php"]
     build:
       context: ./infra/laravel
       dockerfile: Dockerfile
