@@ -1,32 +1,32 @@
-// ログイン者のアクセス制限
-import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
-import { useAuthStore } from '@/stores/auth'
-import type { Route } from '@/mold/interface/route'
+// 未認証のみ許可
 import Login from '@/views/auth/login.vue'
+import { Guard } from './Guard'
+import type { RouteRecordRaw, RouteRecordName } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
 
-// 非ログイン者だけアクセスできる画面
-export const guestOnlyList: Array<Route> = [
-  {
-    path: '/login',
-    name: 'login',
-    component: Login,
-  },
-]
-// 自動生成で追加漏れを防ぐ
-const guestOnlyNameList: Array<string> = guestOnlyList.map((route) => route.name)
+export class GuestGuard extends Guard {
+  protected setRedirectName(): RouteRecordName {
+    return 'home'
+  }
 
-export const guestGuard = (
-  to: RouteLocationNormalized,
-  from: RouteLocationNormalized,
-  next: NavigationGuardNext,
-) => {
-  // 認証storeを呼び出す
-  const authStore = useAuthStore()
-  const routeInGuestOnlyNameList = to.name && guestOnlyNameList.includes(to.name as string)
+  // 非ログイン者だけアクセスできる画面
+  protected setAccessibleList(): RouteRecordRaw[] {
+    return [
+      {
+        path: '/login',
+        name: 'login',
+        component: Login,
+        meta: { guestOnly: true },
+      },
+    ]
+  }
 
-  if (routeInGuestOnlyNameList && authStore.isVerified) {
-    next({ name: 'home' })
-  } else {
-    next()
+  // ログイン者が非ログイン者のみアクセスできるページにアクセスしようとしてるのを防ぐ
+  public shouldRedirect(toName: RouteRecordName, accessibleNameList: RouteRecordName[]): boolean {
+    // 認証storeを呼び出す
+    const authStore = useAuthStore()
+    const routeInGuestOnlyNameList = accessibleNameList.includes(toName)
+
+    return routeInGuestOnlyNameList && authStore.isVerified
   }
 }
