@@ -16,6 +16,7 @@ export class GuestGuard extends Guard {
         path: '/login',
         name: 'login',
         component: Login,
+        meta: { guestOnly: true },
       },
     ]
   }
