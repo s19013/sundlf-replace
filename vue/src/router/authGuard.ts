@@ -16,6 +16,7 @@ export class AuthGuard extends Guard {
         path: '/',
         name: 'home',
         component: HomeView,
+        meta: { requiresAuth: true },
       },
     ]
   }
