@@ -1,7 +1,6 @@
 // import type { Route } from '@/mold/interface/route'
 import type {
-  // NavigationGuard,
-  NavigationGuardNext,
+  NavigationGuard,
   RouteLocationNormalized,
   RouteRecordRaw,
   RouteRecordName,
@@ -44,16 +43,25 @@ export abstract class Guard {
     accessibleNameList: RouteRecordName[],
   ): boolean
 
+  // http://router.vuejs.org/guide/advanced/navigation-guards.html#Optional-third-argument-next
   /** vue router に渡すガード */
-  public routeGuard = (
-    to: RouteLocationNormalized,
-    from: RouteLocationNormalized,
-    next: NavigationGuardNext,
-  ) => {
-    if (this.shouldRedirect(to.name as string, this.accessibleNameList)) {
-      next({ name: this.redirectName })
-    } else {
-      next()
+  public routeGuard: NavigationGuard = (to: RouteLocationNormalized) => {
+    // 名前がないルートは対象外
+    // 通す
+    if (!to.name) return true
+
+    // すでにリダイレクト先なら何もしない（無限ループ防止）
+    // 通す
+    if (to.name === this.redirectName) return true
+
+    // 拒否条件に引っかかったら指定した場所にリダイレクト
+    // 通さない
+    if (this.shouldRedirect(to.name, this.accessibleNameList)) {
+      return { name: this.redirectName }
     }
+
+    // ここまで来たら何も問題が無いので
+    // 通す
+    return true
   }
 }
