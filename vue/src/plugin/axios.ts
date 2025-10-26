@@ -3,6 +3,11 @@ import type { AxiosInstance } from 'axios'
 import { useAuthStore } from '@/stores/auth'
 import axios from 'axios'
 
+// envでapiのurlが設定されているか確認
+if (!import.meta.env.VITE_API) {
+  throw new Error('VITE_API environment variable is not defined. Please check your .env file.')
+}
+
 const config = {
   // cors設定
   withCredentials: true,
