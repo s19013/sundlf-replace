@@ -22,5 +22,8 @@
     "editor.formatOnSave": true
   },
   "laravel-pint.fallbackToGlobalBin": false,
-  "laravel-pint.executablePath": ".vscode/pint.sh"
+  "laravel-pint.executablePath": ".vscode/pint.sh",
+  "[nginx]": {
+    "editor.defaultFormatter": "ahmadalli.vscode-nginx-conf"
+  }
 }
