@@ -5,6 +5,12 @@ set -euo pipefail
 # -u: 未定義変数を使用したらエラー
 # -o pipefail: パイプラインの中で失敗があれば全体をエラーにする
 
+# .envファイルが存在しない場合は.env.exampleからコピー
+if [ ! -f .env ]; then
+    echo "Copying .env.example to .env..."
+    cp .env.example .env
+fi
+
 
 # 初回実行フラグファイルのパス
 INIT_FLAG="./scripts/.init_done"
@@ -12,6 +18,12 @@ INIT_FLAG="./scripts/.init_done"
 # フラグファイルが存在しない場合にのみ初期化処理を実行
 if [ ! -f "$INIT_FLAG" ];then
     echo "initialization"
+
+    # セットアップスクリプトの存在確認
+    if [ ! -f "./scripts/setup_laravel.sh" ]; then
+        echo "Error: setup_laravel.sh not found"
+        exit 1
+    fi
 
     bash "./scripts/setup_laravel.sh"
 
