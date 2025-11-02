@@ -13,7 +13,14 @@ composer install
 npm ci
 
 php artisan key:generate
+
 php artisan migrate
+
+# データベースの準備ができるまで待機
+echo "Waiting for database to be ready..."
+echo "Database not ready, waiting..."
+sleep 3
+
 php artisan db:seed
 
 echo "setup laravel completed"
